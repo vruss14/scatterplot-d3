@@ -8,4 +8,18 @@ fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/maste
 
 function createScatterplot(data) {
     console.log(data);
+
+    // Set up the SVG canvas
+
+    let width = 900;
+    let height = 600;
+    let padding = 60;
+
+    const svg = d3.select('#scatterplot-container')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+
+
+
 }
