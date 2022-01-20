@@ -26,7 +26,7 @@ function createScatterplot(data) {
     // in milliseconds to minutes and seconds
 
     const xAxisScale = d3.scaleLinear()
-    .domain([d3.min(data, (d) => d.Year), d3.max(data, (d) => d.Year)])
+    .domain([d3.min(data, (d) => d.Year - 1), d3.max(data, (d) => d.Year + 1)])
     .range([padding, width - padding])
 
     const yAxisScale = d3.scaleTime()
@@ -52,6 +52,9 @@ function createScatterplot(data) {
     // Plot the dots on the scatterplot
     // cx = where the dot should be placed on the x axis (based on year)
     // cy = where the dot should be place on the y axis (based on time; needs to be Date object)
+    
+    // Doping allegation means that the Doping property of d object is not an empty string;
+    // change fill color based on Doping
 
     svg.selectAll('circle')
     .data(data)
@@ -63,5 +66,6 @@ function createScatterplot(data) {
     .attr('data-yvalue', (d) => new Date (parseInt(d.Seconds) * 1000))
     .attr('cx', (d) => xAxisScale(d.Year))
     .attr('cy', (d) => yAxisScale(new Date (parseInt(d.Seconds) * 1000)))
+    .attr('fill', (d) => d.Doping ? 'red': 'black')
 
 }
