@@ -20,6 +20,8 @@ function createScatterplot(data) {
     .attr('width', width)
     .attr('height', height)
 
+    let toolTip = d3.select('#tooltip')
+
     // Set up the x axis and y axis
     // x axis uses scaleLinear and is formatted to decimals (i.e. 2002 instead of 2,002)
     // y axis uses scaleTime and formats the time from a JavaScript Date Object 
@@ -52,9 +54,11 @@ function createScatterplot(data) {
     // Plot the dots on the scatterplot
     // cx = where the dot should be placed on the x axis (based on year)
     // cy = where the dot should be place on the y axis (based on time; needs to be Date object)
-    
+
     // Doping allegation means that the Doping property of d object is not an empty string;
     // change fill color based on Doping
+
+    // Tooltip HTML varies based on if there is a doping allegation
 
     svg.selectAll('circle')
     .data(data)
@@ -67,5 +71,30 @@ function createScatterplot(data) {
     .attr('cx', (d) => xAxisScale(d.Year))
     .attr('cy', (d) => yAxisScale(new Date (parseInt(d.Seconds) * 1000)))
     .attr('fill', (d) => d.Doping ? 'red': 'black')
+    .on('mouseover', (event) => {
+        let d = event.target.__data__;
+
+        toolTip.transition()
+        .style('visibility', 'visible')
+
+        toolTip.attr('data-year', d.Year)
+
+        if(d.Doping !== '') {
+            toolTip.html(`
+            <p>${d.Name}: ${d.Nationality}</p>
+            <p>Year: ${d.Year}, Time: ${d.Time}</p>
+            <p>${d.Doping}</p>`)
+        } else {
+            toolTip.html(`
+            <p>${d.Name}: ${d.Nationality}</p>
+            <p>Year: ${d.Year}, Time: ${d.Time}</p>
+            <p>No allegations.</p>`)        
+        }
+    })
+    .on('mouseout', (d) => {
+        toolTip.transition()
+        .style('visibility', 'hidden')
+    })
+
 
 }
