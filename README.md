@@ -22,11 +22,13 @@ Overall, this was a challenging project to create, but I feel like it has helped
 
 ## Installation
 
-No installation steps are required to view this project. To view the page, visit the URL above. The application's source code can be found on GitHub here: https://github.com/vruss14/scatterplot-d3.
+No installation steps are required to view this project. The application's source code can be found on GitHub here: https://github.com/vruss14/scatterplot-d3.
 
 ## Usage
 
-This webpage is best viewed on desktop devices.
+This webpage is best viewed on desktop devices. Below is a screenshot of the page:
+
+![Cycling Scatterplot](scatterplot-d3-desktop.png)
 
 ## Credits
 
